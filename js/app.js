@@ -42,8 +42,6 @@ class UI {
     if (total < 0){
       this.balance.classList.remove('showGreen', 'showBlack');
       this.balance.classList.add('showRed');
-      
-
     }
     else if (total > 0){
       this.balance.classList.remove('showRed', 'showBlack');
@@ -119,9 +117,40 @@ class UI {
     this.expenseAmount.textContent = total;
     return total;
   }
+  //edit expense
+  editExpense(element){
+    let id = parseInt(element.dataset.id);
+    let parent = element.parentElement.parentElement.parentElement;
+    //remove from DOM
+    this.expenseList.removeChild(parent);
+    
+    let expense = this.itemList.filter((item) =>{
+      return item.id === id; // returns an array with the edited item(one)
+    })
+    //show value
+    this.expenseInput.value = expense[0].title;
+    this.amountInput.value = expense[0].amount;
+    //remove from the list
+    let tempList = this.itemList.filter((item) =>{
+      return item.id !== id;
+    })
+    this.itemList = tempList;
+    this.showBalance();
+  }
+  //delete expense
+  deleteExpense(element){
+    let id = parseInt(element.dataset.id);
+    let parent = element.parentElement.parentElement.parentElement;
+    //remove from DOM
+    this.expenseList.removeChild(parent);
+    //remove from the list
+    let tempList = this.itemList.filter((item) =>{
+      return item.id !== id;
+    })
+    this.itemList = tempList;
+    this.showBalance();
+  }
 }
-
-
 function eventListeners(){
   const budgetForm = document.getElementById('budget-form');
   const expenseForm = document.getElementById('expense-form');
@@ -143,7 +172,13 @@ function eventListeners(){
   })
 
   //expense list click
-  expenseList.addEventListener('click', function(){
+  expenseList.addEventListener('click', function(event){
+    if(event.target.parentElement.classList.contains('edit-icon')){
+      ui.editExpense(event.target.parentElement);
+    }
+    else if(event.target.parentElement.classList.contains('delete-icon')){
+      ui.deleteExpense(event.target.parentElement);
+    }
     
   })
 

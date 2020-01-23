@@ -1,3 +1,5 @@
+let ref = db.collection("budget").doc("ppZKVuPTGStPWSXrZOaq");
+
 class UI {
   constructor() {
     this.budgetFeedback = document.querySelector(".budget-feedback");
@@ -15,6 +17,15 @@ class UI {
     this.itemList = [];
     this.itemID = 0;
   }
+
+  /* 
+  db.collection('budget').get().then((snapshot) => {
+    snapshot.docs.forEach(doc => {
+      renderBudget(doc);
+    })
+  })
+  */
+ 
   //submit budget method
   submitBudgetForm(){
     //console.log('hello it's working');
@@ -29,6 +40,7 @@ class UI {
       }, 5000);
     }
     else{
+      ref.update({budget: parseInt(value)});
       this.budgetAmount.textContent = value;
       this.budgetInput.value = '';
       this.showBalance();
@@ -105,9 +117,9 @@ class UI {
   totalExpense(){
     let total = 0;
     if (this.itemList.length > 0) {
-      console.log(this.itemList);
+      //console.log(this.itemList);
       total = this.itemList.reduce((acc, curr) =>{
-        console.log(`Total is ${acc} and current is ${curr.amount}`)
+        //console.log(`Total is ${acc} and current is ${curr.amount}`)
         acc += curr.amount;
         return acc;
       }, 0)

@@ -29,7 +29,7 @@ class UI {
   showData(doc){
     this.budgetAmount.textContent = doc.data().budget;
     this.expenseAmount.textContent = doc.data().totalExpense;
-    this.balanceAmount.textContent = doc.data().balance;
+    this.balanceAmount.textContent = doc.data().budget - doc.data().totalExpense;
     let total = this.balanceAmount.textContent;
     if (total < 0){
       this.balance.classList.remove('showGreen', 'showBlack');
@@ -71,7 +71,7 @@ class UI {
       ref.onSnapshot(function(doc) {
         //console.log("Current data: ", doc.data());
         self.showData(doc);
-    });
+      });
       this.budgetInput.value = '';
       //self.showBalance();
     }
@@ -95,9 +95,9 @@ class UI {
   //     this.balance.classList.add('showBlack');
   //   }
   // }
-  showExpenseList(itemList){
+  //showExpenseList(itemList){
 
-  }
+  //}
   //submit expense form
   submitExpenseForm(){
     const expenseValue = this.expenseInput.value;
@@ -113,7 +113,6 @@ class UI {
       let amount = parseInt(amountValue);
       this.expenseInput.value = '';
       this.amountInput.value = '';
-      
       let expense = {
         id: this.itemID,
         title: expenseValue,
@@ -121,10 +120,27 @@ class UI {
       }
       this.itemID++;
       this.itemList.push(expense);
-      
-      this.showExpenseList(itemList);
       this.addExpense(expense);
-      this.showBalance();
+      let expValue = parseInt(this.expenseAmount.textContent) + amount;
+      
+      ref.update({totalExpense: expValue});
+      console.log(this.expenseAmount.textContent);
+      let balValue = parseInt(this.budgetAmount.textContent) - expValue;
+      //console.log(balValue);
+      //ref.update({balance: balValue});
+      // ref.onSnapshot(function(doc) {
+      //   //console.log("Current data: ", doc.data());
+      //   self.showData(doc);
+      // });
+      
+      //const total = parseInt(this.budgetAmount.textContent) - expense;
+      // ref.onSnapshot(function(doc) {
+      //   //console.log("Current data: ", doc.data());
+      //   self.showData(doc);
+      // });
+      // let newExpenseAmount = parseInt(this.expenseAmount.value) + amount;
+      // console.log(newExpenseAmount);
+      // ref.update({totalExpense: newExpenseAmount});   
     }
   }
   //add expense
@@ -207,7 +223,7 @@ function eventListeners(){
   //new instance of UI class
   const ui = new UI();
   ref.onSnapshot(function(doc) {
-    console.log("Current data: ", doc.data());
+    //console.log("Current data: ", doc.data());
     ui.showData(doc);
   });
 
@@ -235,7 +251,6 @@ function eventListeners(){
   })
 
 }
-
 document.addEventListener('DOMContentLoaded', function(){
   eventListeners();
 })

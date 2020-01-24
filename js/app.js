@@ -30,6 +30,7 @@ class UI {
     this.budgetAmount.textContent = doc.data().budget;
     this.expenseAmount.textContent = doc.data().totalExpense;
     this.balanceAmount.textContent = doc.data().budget - doc.data().totalExpense;
+    ref.update({balance: parseInt(this.balanceAmount.textContent)})
     let total = this.balanceAmount.textContent;
     if (total < 0){
       this.balance.classList.remove('showGreen', 'showBlack');
@@ -199,7 +200,9 @@ class UI {
       return item.id !== id;
     })
     this.itemList = tempList;
-    this.showBalance();
+    this.expenseAmount.textContent -= this.amountInput.value;
+    this.balanceAmount.textContent = parseInt(this.balanceAmount.textContent) + parseInt(this.amountInput.value);
+    //this.showBalance();
   }
   //delete expense
   deleteExpense(element){
@@ -207,12 +210,23 @@ class UI {
     let parent = element.parentElement.parentElement.parentElement;
     //remove from DOM
     this.expenseList.removeChild(parent);
+
+    let expense = this.itemList.filter((item) =>{
+      return item.id === id; // returns an array with the edited item(one)
+    })
+    //show value
+    //this.expenseInput.value = expense[0].title;
+    //this.amountInput.value = expense[0].amount;
     //remove from the list
     let tempList = this.itemList.filter((item) =>{
       return item.id !== id;
     })
     this.itemList = tempList;
-    this.showBalance();
+    //this.showBalance();
+    this.expenseAmount.textContent -= expense[0].amount;
+    this.balanceAmount.textContent = parseInt(this.balanceAmount.textContent) + expense[0].amount;
+    ref.update({balance:  parseInt(this.balanceAmount.textContent)});
+    ref.update({totalExpense:  parseInt(this.expenseAmount.textContent)});
   }
 }
 function eventListeners(){

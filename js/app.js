@@ -26,6 +26,25 @@ class UI {
   })
   */
  
+  showData(doc){
+    this.budgetAmount.textContent = doc.data().budget;
+    this.expenseAmount.textContent = doc.data().totalExpense;
+    this.balanceAmount.textContent = doc.data().balance;
+    let total = this.balanceAmount.textContent;
+    if (total < 0){
+      this.balance.classList.remove('showGreen', 'showBlack');
+      this.balance.classList.add('showRed');
+    }
+    else if (total > 0){
+      this.balance.classList.remove('showRed', 'showBlack');
+      this.balance.classList.add('showGreen');
+    }
+    else if (total === 0){
+      this.balance.classList.remove('showGreen', 'showRed');
+      this.balance.classList.add('showBlack');
+    }
+    //this.showBalance();
+  }
   //submit budget method
   submitBudgetForm(){
     //console.log('hello it's working');
@@ -41,28 +60,43 @@ class UI {
     }
     else{
       ref.update({budget: parseInt(value)});
-      this.budgetAmount.textContent = value;
+      //this.budgetAmount.textContent = value;
+      // db.collection("budget").get().then(snapshot =>{
+      //   snapshot.docs.forEach(doc =>{
+      //     console.log(doc.data().budget);
+      //     this.saveBudget(doc);
+      //   });
+      // });
+      const self = this;
+      ref.onSnapshot(function(doc) {
+        //console.log("Current data: ", doc.data());
+        self.showData(doc);
+    });
       this.budgetInput.value = '';
-      this.showBalance();
+      //self.showBalance();
     }
   }
   //show balance 
-  showBalance(){
-    const expense = this.totalExpense();
-    const total = parseInt(this.budgetAmount.textContent) - expense;
-    this.balanceAmount.textContent = total;
-    if (total < 0){
-      this.balance.classList.remove('showGreen', 'showBlack');
-      this.balance.classList.add('showRed');
-    }
-    else if (total > 0){
-      this.balance.classList.remove('showRed', 'showBlack');
-      this.balance.classList.add('showGreen');
-    }
-    else if (total === 0){
-      this.balance.classList.remove('showGreen', 'showRed');
-      this.balance.classList.add('showBlack');
-    }
+  //showBalance(){
+    //const expense = this.totalExpense();
+    // const expense = this.totalExpense();
+    // const total = parseInt(this.budgetAmount.textContent) - expense;
+  //   this.balanceAmount.textContent = total;
+  //   if (total < 0){
+  //     this.balance.classList.remove('showGreen', 'showBlack');
+  //     this.balance.classList.add('showRed');
+  //   }
+  //   else if (total > 0){
+  //     this.balance.classList.remove('showRed', 'showBlack');
+  //     this.balance.classList.add('showGreen');
+  //   }
+  //   else if (total === 0){
+  //     this.balance.classList.remove('showGreen', 'showRed');
+  //     this.balance.classList.add('showBlack');
+  //   }
+  // }
+  showExpenseList(itemList){
+
   }
   //submit expense form
   submitExpenseForm(){
@@ -87,6 +121,8 @@ class UI {
       }
       this.itemID++;
       this.itemList.push(expense);
+      
+      this.showExpenseList(itemList);
       this.addExpense(expense);
       this.showBalance();
     }
@@ -170,6 +206,10 @@ function eventListeners(){
 
   //new instance of UI class
   const ui = new UI();
+  ref.onSnapshot(function(doc) {
+    console.log("Current data: ", doc.data());
+    ui.showData(doc);
+  });
 
   //budget form submit
   budgetForm.addEventListener('submit', function(event){

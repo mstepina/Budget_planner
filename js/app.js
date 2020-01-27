@@ -75,13 +75,12 @@ class UI {
     }
     else{
       ref.update({budget: parseInt(value)});
-      const self = this;
       this.budgetInput.value = '';
+      let self = this;
       ref.get().then(function(doc){
         if(doc.exists){
           self.showData(doc);
         }else{
-          console.log("Try again");
           self.budgetFeedback.classList.add('showItem');
           self.budgetFeedback.innerHTML = `<p> Connection error: please refresh the page</p>`;
         }
@@ -125,9 +124,9 @@ class UI {
           self.expenseFeedback.classList.add('showItem');
           self.expenseFeedback.innerHTML = `<p> Connection error: please refresh the page</p>`;
         }
-        
       })
       this.addExpense(expense);
+      console.log(this.itemList.textContent);
     }
   }
   //add expense
@@ -167,6 +166,7 @@ class UI {
   //edit expense
   editExpense(element){
     let id = parseInt(element.dataset.id);
+    console.log(id);
     let parent = element.parentElement.parentElement.parentElement;
     //remove from DOM
     this.expenseList.removeChild(parent);
@@ -193,7 +193,7 @@ class UI {
     this.expenseList.removeChild(parent);
 
     let expense = this.itemList.filter((item) =>{
-      return item.id === id; // returns an array with the edited item(one)
+     return item.id === id; // returns an array with the edited item(one)
     })
     let tempList = this.itemList.filter((item) =>{
       return item.id !== id;

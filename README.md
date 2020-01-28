@@ -10,3 +10,11 @@ Main functionality:
  - calculating total expenses and balance
  - editing and deleting expenses
  - all the changes saved in the database
+
+## Instructions
+1. Clone or download repository
+2. Make sure you are on the master branch
+```git checkout master```
+3. Open index.html file in the browser
+```open index.html``` for MacOs terminal 
+```start index.html``` for Windows command line

@@ -15,6 +15,6 @@ Main functionality:
 1. Clone or download repository
 2. Make sure you are on the master branch
 ```git checkout master```
-3. Open index.html file in the browser
-```open index.html``` for MacOs terminal 
+3. Open index.html file in the browser\
+```open index.html``` for MacOs terminal \
 ```start index.html``` for Windows command line

@@ -9,4 +9,4 @@ Main functionality:
  - creating the list of expenses
  - calculating total expenses and balance
  - editing and deleting expenses
- - saving all the changes in the database
+ - all the changes saved in the database

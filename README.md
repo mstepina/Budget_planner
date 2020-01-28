@@ -1,7 +1,9 @@
 # Budget_planner
 
 Simple one user web application for budget planning.
+
 Stack: JavaScript, jQuery, Bootstrap.
+
 Data storage : Firebase/ Firestore
 
 Main functionality:
@@ -18,5 +20,5 @@ Main functionality:
 3. Open index.html file in the browser\
 ```open index.html``` for MacOs terminal \
 ```start index.html``` for Windows command line
-4. Start buy enering your budget \ 
+4. Start by entering your budget \ 
 

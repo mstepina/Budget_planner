@@ -1,18 +1,18 @@
 /*
 
-Simple one-user budget web application.
-Stack: JavaScript, jQuery, bootstrap.
+Simple one user web application for budget planning.
+Stack: JavaScript, jQuery, Bootstrap.
 Data storage : Firebase/ Firestore
 Main functionality: 
  - adding/changing budget
  - creating the list of expenses
  - calculating total expenses and balance
  - editing and deleting expenses
- - saving all the changes in the app
+ - saving all the changes in the database
 
 */
 
-//reference to the document to store all the data
+//reference to the document where the data stored
 let ref = db.collection("budget").doc("ppZKVuPTGStPWSXrZOaq");
 
 // one and only class to manipulate all the data
@@ -37,6 +37,9 @@ class UI {
   showData(doc){
     this.budgetAmount.textContent = doc.data().budget;
     this.expenseAmount.textContent = doc.data().totalExpense;
+    if (this.expenseAmount.textContent == 0){
+      ref.update({itemID : 0});
+    }
     this.balanceAmount.textContent = doc.data().budget - doc.data().totalExpense;
     ref.update({balance: parseInt(this.balanceAmount.textContent)})
     let total = this.balanceAmount.textContent;
@@ -142,10 +145,10 @@ class UI {
          <div class="expense-icons list-item">
 
           <a href="#" class="edit-icon mx-2" data-id="${expense.id}">
-           <i class="fas fa-edit"></i>
+           <i class="fas fa-pencil-alt"></i>
           </a>
           <a href="#" class="delete-icon" data-id="${expense.id}">
-           <i class="fas fa-trash"></i>
+           <i class="fas fa-trash-alt"></i>
           </a>
          </div>
     `

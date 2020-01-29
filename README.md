@@ -27,7 +27,7 @@ Main functionality:
 
 4. Start by entering your budget
 
-![](/img/Add_expense.png)
+![](/img/Add_budget.png)
 
 5. Now add expense
 

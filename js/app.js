@@ -129,7 +129,6 @@ class UI {
         }
       })
       this.addExpense(expense);
-      console.log(this.itemList.textContent);
     }
   }
   //add expense
@@ -169,7 +168,6 @@ class UI {
   //edit expense
   editExpense(element){
     let id = parseInt(element.dataset.id);
-    console.log(id);
     let parent = element.parentElement.parentElement.parentElement;
     //remove from DOM
     this.expenseList.removeChild(parent);

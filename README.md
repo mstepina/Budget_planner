@@ -25,5 +25,17 @@ Main functionality:
 
 	```start index.html``` for Windows command line
 
-4. Start by entering your budget 
+4. Start by entering your budget
+
+![](/img/Add_expense.png)
+
+5. Now add expense
+
+![](/img/Add_expense.png)
+
+6. You can edit or delete any expense any time. 
+
+Balance and total sum of your expenses will change accordingly.
+
+![](/img/Edit_delete_expense.png)
 

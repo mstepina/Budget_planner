@@ -35,7 +35,7 @@ Main functionality:
 
 6. You can edit or delete any expense any time. 
 
-Balance and total sum of your expenses will change accordingly.
+   Balance and total sum of your expenses will change accordingly.
 
 ![](/img/Edit_delete_expense.png)
 

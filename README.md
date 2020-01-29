@@ -39,5 +39,5 @@ Main functionality:
 
 ![](/img/Edit_delete_expense.png)
 
-#License
+## License
 You can copy and change anything
